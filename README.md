@@ -17,5 +17,5 @@ Here are some ideas to get you started:
 
 ## 🚀 About Me
 
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=barissozudogru&hide=contribs,prs&show_icons=true&theme=merko)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=barissozudogru&hide=contribs,prs&show_icons=true&theme=tokyonight)
 )
