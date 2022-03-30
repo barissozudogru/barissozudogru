@@ -21,5 +21,3 @@ Here are some ideas to get you started:
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=barissozudogru&layout=compact&show_icons=true&theme=tokyonight)
 
 🔒 All repositories are private
-
-<meta name="google-site-verification" content="0Qo-7sutrpzIC2H1jZt_1cojh5YTJ6Ldz1Qj_IrauxE" />
