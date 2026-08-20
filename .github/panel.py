@@ -148,7 +148,7 @@ THEMES = {
 
 def build(d, theme="dark"):
     c = THEMES[theme]
-    W, H = 792, 346
+    W, H = 792, 268
     rows_left = [
         ("Commits", n(d["commits"])),
         ("Pull requests opened", n(d["prs"])),
@@ -187,34 +187,29 @@ def build(d, theme="dark"):
     legend = []
     for i, (lang, count) in enumerate(d["languages"]):
         w = bar_w * count / total_lang
-        seg.append(f'<rect x="{cursor:.1f}" y="294" width="{max(w - 2, 1):.1f}" height="9" '
+        seg.append(f'<rect x="{cursor:.1f}" y="216" width="{max(w - 2, 1):.1f}" height="9" '
                    f'rx="1.5" fill="{palette[i % len(palette)]}"/>')
         cursor += w
         legend.append((lang, count, palette[i % len(palette)]))
 
     leg_parts, lx = [], bar_x
     for lang, count, colour in legend:
-        leg_parts.append(f'<circle cx="{lx + 4}" cy="326" r="4" fill="{colour}"/>')
-        leg_parts.append(f'<text x="{lx + 14}" y="330" class="lg">{esc(lang)}</text>')
+        leg_parts.append(f'<circle cx="{lx + 4}" cy="246" r="4" fill="{colour}"/>')
+        leg_parts.append(f'<text x="{lx + 14}" y="250" class="lg">{esc(lang)}</text>')
         lx += 24 + len(lang) * 7.6
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="GitHub metrics for {OWNER}">
 <style>
-  .t {{ fill: {c["t"]}; font: 600 21px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }}
-  .s {{ fill: {c["s"]}; font: 400 13px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }}
   .h {{ fill: {c["h"]}; font: 600 11.5px ui-sans-serif, -apple-system, sans-serif; letter-spacing: .11em; }}
   .k {{ fill: {c["k"]}; font: 400 14px ui-sans-serif, -apple-system, sans-serif; }}
   .v {{ fill: {c["v"]}; font: 500 14.5px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }}
   .lg {{ fill: {c["k"]}; font: 400 12px ui-sans-serif, -apple-system, sans-serif; }}
 </style>
-<text x="0" y="26" class="t">Baris Sozudogru</text>
-<text x="0" y="48" class="s">Engineering manager in Munich.</text>
+{column(rows_left, 0, 20, "ACTIVITY")}
+{column(rows_right, 280, 20, "REPOSITORIES")}
+{column(rows_third, 560, 20, "REACH")}
 
-{column(rows_left, 0, 92, "ACTIVITY")}
-{column(rows_right, 280, 92, "REPOSITORIES")}
-{column(rows_third, 560, 92, "REACH")}
-
-<text x="0" y="278" class="h">LANGUAGES</text>
+<text x="0" y="200" class="h">LANGUAGES</text>
 {chr(10).join(seg)}
 {chr(10).join(leg_parts)}
 
