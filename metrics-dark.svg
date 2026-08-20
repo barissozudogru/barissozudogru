@@ -34,11 +34,11 @@
 <text x="560" y="79" class="k">Forks</text>
 <text x="780" y="79" class="v" text-anchor="end">4</text>
 <text x="560" y="106" class="k">Followers</text>
-<text x="780" y="106" class="v" text-anchor="end">49</text>
+<text x="780" y="106" class="v" text-anchor="end">50</text>
 <text x="560" y="133" class="k">Following</text>
 <text x="780" y="133" class="v" text-anchor="end">227</text>
 <text x="560" y="160" class="k">Organizations</text>
-<text x="780" y="160" class="v" text-anchor="end">1</text>
+<text x="780" y="160" class="v" text-anchor="end">2</text>
 
 <text x="0" y="200" class="h">Languages</text>
 <clipPath id="barclip"><rect x="0" y="216" width="792" height="8" rx="4"/></clipPath>
