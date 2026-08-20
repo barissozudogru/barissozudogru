@@ -140,10 +140,24 @@ def esc(s):
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
 
+# Primer tokens, read off a live GitHub page rather than guessed. Section
+# headings on GitHub are 16px semibold in the default foreground colour, in
+# sentence case: not uppercase, not accent-coloured, not letter-spaced.
 THEMES = {
-    "light": {"t": "#14181A", "s": "#6B7679", "h": "#2C6E7E", "k": "#4B5457", "v": "#14181A"},
-    "dark":  {"t": "#E8ECEA", "s": "#8B9497", "h": "#6FB3C4", "k": "#A3ACAF", "v": "#E8ECEA"},
+    "light": {"fg": "#1f2328", "muted": "#59636e", "border": "#d1d9e0"},
+    "dark":  {"fg": "#f0f6fc", "muted": "#9198a1", "border": "#3d444d"},
 }
+
+# github-linguist colours, so the bar matches every other language bar on the site.
+LANG_COLOURS = {
+    "Python": "#3572A5", "TypeScript": "#3178c6", "HTML": "#e34c26",
+    "JavaScript": "#f1e05a", "Swift": "#F05138", "Astro": "#ff5a03",
+    "Shell": "#89e051", "CSS": "#663399", "Go": "#00ADD8", "Ruby": "#701516",
+}
+FALLBACK_COLOUR = "#8b949e"
+
+FONT = ('"Mona Sans VF", -apple-system, "system-ui", "Segoe UI", '
+        '"Noto Sans", Helvetica, Arial, sans-serif')
 
 
 def build(d, theme="dark"):
@@ -173,7 +187,7 @@ def build(d, theme="dark"):
 
     def column(rows, x, y0, label):
         out = [f'<text x="{x}" y="{y0}" class="h">{esc(label)}</text>']
-        y = y0 + 30
+        y = y0 + 32
         for k, v in rows:
             out.append(f'<text x="{x}" y="{y}" class="k">{esc(k)}</text>')
             out.append(f'<text x="{x + 220}" y="{y}" class="v" text-anchor="end">{esc(v)}</text>')
@@ -181,36 +195,41 @@ def build(d, theme="dark"):
         return "\n".join(out)
 
     total_lang = sum(c for _, c in d["languages"]) or 1
-    bar_x, bar_w = 0, W
-    seg, cursor = [], bar_x
-    palette = ["#4C8FBD", "#5FA37E", "#B58A56", "#8E7BB0", "#9AA3A8"]
-    legend = []
-    for i, (lang, count) in enumerate(d["languages"]):
+    bar_w, bar_y, bar_h = W, 216, 8
+    seg, cursor, legend = [], 0.0, []
+    for lang, count in d["languages"]:
+        colour = LANG_COLOURS.get(lang, FALLBACK_COLOUR)
         w = bar_w * count / total_lang
-        seg.append(f'<rect x="{cursor:.1f}" y="216" width="{max(w - 2, 1):.1f}" height="9" '
-                   f'rx="1.5" fill="{palette[i % len(palette)]}"/>')
+        # No radius and no gap on the segments. The clip path rounds the ends,
+        # which is how the bar reads as one object rather than five chips.
+        seg.append(f'<rect x="{cursor:.2f}" y="{bar_y}" width="{w:.2f}" '
+                   f'height="{bar_h}" fill="{colour}"/>')
         cursor += w
-        legend.append((lang, count, palette[i % len(palette)]))
+        legend.append((lang, colour))
 
-    leg_parts, lx = [], bar_x
-    for lang, count, colour in legend:
-        leg_parts.append(f'<circle cx="{lx + 4}" cy="246" r="4" fill="{colour}"/>')
-        leg_parts.append(f'<text x="{lx + 14}" y="250" class="lg">{esc(lang)}</text>')
-        lx += 24 + len(lang) * 7.6
+    leg_parts, lx = [], 0
+    for lang, colour in legend:
+        leg_parts.append(f'<circle cx="{lx + 4}" cy="248" r="4" fill="{colour}"/>')
+        leg_parts.append(f'<text x="{lx + 14}" y="252" class="lg">{esc(lang)}</text>')
+        lx += 26 + len(lang) * 6.9
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="GitHub metrics for {OWNER}">
 <style>
-  .h {{ fill: {c["h"]}; font: 600 11.5px ui-sans-serif, -apple-system, sans-serif; letter-spacing: .11em; }}
-  .k {{ fill: {c["k"]}; font: 400 14px ui-sans-serif, -apple-system, sans-serif; }}
-  .v {{ fill: {c["v"]}; font: 500 14.5px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }}
-  .lg {{ fill: {c["k"]}; font: 400 12px ui-sans-serif, -apple-system, sans-serif; }}
+  .h {{ fill: {c["fg"]}; font: 600 16px {FONT}; }}
+  .k {{ fill: {c["muted"]}; font: 400 14px {FONT}; }}
+  .v {{ fill: {c["fg"]}; font: 600 14px {FONT}; font-variant-numeric: tabular-nums; }}
+  .lg {{ fill: {c["muted"]}; font: 400 12px {FONT}; }}
+  .rule {{ stroke: {c["border"]}; stroke-width: 1; }}
 </style>
-{column(rows_left, 0, 20, "ACTIVITY")}
-{column(rows_right, 280, 20, "REPOSITORIES")}
-{column(rows_third, 560, 20, "REACH")}
+{column(rows_left, 0, 20, "Activity")}
+{column(rows_right, 280, 20, "Repositories")}
+{column(rows_third, 560, 20, "Reach")}
 
-<text x="0" y="200" class="h">LANGUAGES</text>
+<text x="0" y="200" class="h">Languages</text>
+<clipPath id="barclip"><rect x="0" y="216" width="{W}" height="8" rx="4"/></clipPath>
+<g clip-path="url(#barclip)">
 {chr(10).join(seg)}
+</g>
 {chr(10).join(leg_parts)}
 
 </svg>

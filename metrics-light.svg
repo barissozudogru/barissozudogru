@@ -1,59 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="792" height="268" viewBox="0 0 792 268" role="img" aria-label="GitHub metrics for barissozudogru">
 <style>
-  .h { fill: #2C6E7E; font: 600 11.5px ui-sans-serif, -apple-system, sans-serif; letter-spacing: .11em; }
-  .k { fill: #4B5457; font: 400 14px ui-sans-serif, -apple-system, sans-serif; }
-  .v { fill: #14181A; font: 500 14.5px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }
-  .lg { fill: #4B5457; font: 400 12px ui-sans-serif, -apple-system, sans-serif; }
+  .h { fill: #1f2328; font: 600 16px "Mona Sans VF", -apple-system, "system-ui", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
+  .k { fill: #59636e; font: 400 14px "Mona Sans VF", -apple-system, "system-ui", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
+  .v { fill: #1f2328; font: 600 14px "Mona Sans VF", -apple-system, "system-ui", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; font-variant-numeric: tabular-nums; }
+  .lg { fill: #59636e; font: 400 12px "Mona Sans VF", -apple-system, "system-ui", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif; }
+  .rule { stroke: #d1d9e0; stroke-width: 1; }
 </style>
-<text x="0" y="20" class="h">ACTIVITY</text>
-<text x="0" y="50" class="k">Commits</text>
-<text x="220" y="50" class="v" text-anchor="end">6,513</text>
-<text x="0" y="77" class="k">Pull requests opened</text>
-<text x="220" y="77" class="v" text-anchor="end">1,219</text>
-<text x="0" y="104" class="k">Merged</text>
-<text x="220" y="104" class="v" text-anchor="end">1,167</text>
-<text x="0" y="131" class="k">Pull requests reviewed</text>
-<text x="220" y="131" class="v" text-anchor="end">200</text>
-<text x="0" y="158" class="k">Issues opened</text>
-<text x="220" y="158" class="v" text-anchor="end">95</text>
-<text x="280" y="20" class="h">REPOSITORIES</text>
-<text x="280" y="50" class="k">Repositories</text>
-<text x="500" y="50" class="v" text-anchor="end">57  (12 public)</text>
-<text x="280" y="77" class="k">Releases</text>
-<text x="500" y="77" class="v" text-anchor="end">38</text>
-<text x="280" y="104" class="k">Packages</text>
-<text x="500" y="104" class="v" text-anchor="end">27</text>
-<text x="280" y="131" class="k">Licensed</text>
-<text x="500" y="131" class="v" text-anchor="end">22 of 57</text>
-<text x="280" y="158" class="k">Storage</text>
-<text x="500" y="158" class="v" text-anchor="end">958 MB</text>
-<text x="560" y="20" class="h">REACH</text>
-<text x="560" y="50" class="k">Stars received</text>
-<text x="780" y="50" class="v" text-anchor="end">15</text>
-<text x="560" y="77" class="k">Forks</text>
-<text x="780" y="77" class="v" text-anchor="end">4</text>
-<text x="560" y="104" class="k">Followers</text>
-<text x="780" y="104" class="v" text-anchor="end">45</text>
-<text x="560" y="131" class="k">Following</text>
-<text x="780" y="131" class="v" text-anchor="end">227</text>
-<text x="560" y="158" class="k">Organizations</text>
-<text x="780" y="158" class="v" text-anchor="end">2</text>
+<text x="0" y="20" class="h">Activity</text>
+<text x="0" y="52" class="k">Commits</text>
+<text x="220" y="52" class="v" text-anchor="end">6,515</text>
+<text x="0" y="79" class="k">Pull requests opened</text>
+<text x="220" y="79" class="v" text-anchor="end">1,219</text>
+<text x="0" y="106" class="k">Merged</text>
+<text x="220" y="106" class="v" text-anchor="end">1,167</text>
+<text x="0" y="133" class="k">Pull requests reviewed</text>
+<text x="220" y="133" class="v" text-anchor="end">200</text>
+<text x="0" y="160" class="k">Issues opened</text>
+<text x="220" y="160" class="v" text-anchor="end">95</text>
+<text x="280" y="20" class="h">Repositories</text>
+<text x="280" y="52" class="k">Repositories</text>
+<text x="500" y="52" class="v" text-anchor="end">57  (12 public)</text>
+<text x="280" y="79" class="k">Releases</text>
+<text x="500" y="79" class="v" text-anchor="end">38</text>
+<text x="280" y="106" class="k">Packages</text>
+<text x="500" y="106" class="v" text-anchor="end">27</text>
+<text x="280" y="133" class="k">Licensed</text>
+<text x="500" y="133" class="v" text-anchor="end">22 of 57</text>
+<text x="280" y="160" class="k">Storage</text>
+<text x="500" y="160" class="v" text-anchor="end">958 MB</text>
+<text x="560" y="20" class="h">Reach</text>
+<text x="560" y="52" class="k">Stars received</text>
+<text x="780" y="52" class="v" text-anchor="end">15</text>
+<text x="560" y="79" class="k">Forks</text>
+<text x="780" y="79" class="v" text-anchor="end">4</text>
+<text x="560" y="106" class="k">Followers</text>
+<text x="780" y="106" class="v" text-anchor="end">45</text>
+<text x="560" y="133" class="k">Following</text>
+<text x="780" y="133" class="v" text-anchor="end">227</text>
+<text x="560" y="160" class="k">Organizations</text>
+<text x="780" y="160" class="v" text-anchor="end">2</text>
 
-<text x="0" y="200" class="h">LANGUAGES</text>
-<rect x="0.0" y="216" width="328.0" height="9" rx="1.5" fill="#4C8FBD"/>
-<rect x="330.0" y="216" width="278.5" height="9" rx="1.5" fill="#5FA37E"/>
-<rect x="610.5" y="216" width="97.0" height="9" rx="1.5" fill="#B58A56"/>
-<rect x="709.5" y="216" width="64.0" height="9" rx="1.5" fill="#8E7BB0"/>
-<rect x="775.5" y="216" width="14.5" height="9" rx="1.5" fill="#9AA3A8"/>
-<circle cx="4" cy="246" r="4" fill="#4C8FBD"/>
-<text x="14" y="250" class="lg">Python</text>
-<circle cx="73.6" cy="246" r="4" fill="#5FA37E"/>
-<text x="83.6" y="250" class="lg">TypeScript</text>
-<circle cx="173.6" cy="246" r="4" fill="#B58A56"/>
-<text x="183.6" y="250" class="lg">HTML</text>
-<circle cx="228.0" cy="246" r="4" fill="#8E7BB0"/>
-<text x="238.0" y="250" class="lg">JavaScript</text>
-<circle cx="328.0" cy="246" r="4" fill="#9AA3A8"/>
-<text x="338.0" y="250" class="lg">Swift</text>
+<text x="0" y="200" class="h">Languages</text>
+<clipPath id="barclip"><rect x="0" y="216" width="792" height="8" rx="4"/></clipPath>
+<g clip-path="url(#barclip)">
+<rect x="0.00" y="216" width="330.00" height="8" fill="#3572A5"/>
+<rect x="330.00" y="216" width="280.50" height="8" fill="#3178c6"/>
+<rect x="610.50" y="216" width="99.00" height="8" fill="#e34c26"/>
+<rect x="709.50" y="216" width="66.00" height="8" fill="#f1e05a"/>
+<rect x="775.50" y="216" width="16.50" height="8" fill="#F05138"/>
+</g>
+<circle cx="4" cy="248" r="4" fill="#3572A5"/>
+<text x="14" y="252" class="lg">Python</text>
+<circle cx="71.4" cy="248" r="4" fill="#3178c6"/>
+<text x="81.4" y="252" class="lg">TypeScript</text>
+<circle cx="166.4" cy="248" r="4" fill="#e34c26"/>
+<text x="176.4" y="252" class="lg">HTML</text>
+<circle cx="220.0" cy="248" r="4" fill="#f1e05a"/>
+<text x="230.0" y="252" class="lg">JavaScript</text>
+<circle cx="315.0" cy="248" r="4" fill="#F05138"/>
+<text x="325.0" y="252" class="lg">Swift</text>
 
 </svg>
