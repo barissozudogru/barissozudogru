@@ -75,6 +75,19 @@ def contributions_all_time():
     except (TypeError, KeyError):
         return None
 
+    # Contributions to private repositories inside an organisation are only
+    # counted when the token can see that organisation. Without read:org the
+    # API returns a smaller number rather than an error, which is how this
+    # reported 5,030 against an actual 6,517 with nothing to signal a gap.
+    # A count that silently omits a whole organisation is not a count.
+    r = subprocess.run(["gh", "api", "user", "--include", "--silent"],
+                       capture_output=True, text=True)
+    headers = (r.stdout + r.stderr).lower()
+    if "x-oauth-scopes:" in headers:
+        scopes = headers.split("x-oauth-scopes:")[1].split("\n")[0]
+        if "read:org" not in scopes and "admin:org" not in scopes:
+            return None
+
     total = 0
     for year in range(2021, date.today().year + 1):
         q = (f'{{user(login:"{OWNER}"){{contributionsCollection('
