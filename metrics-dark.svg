@@ -8,7 +8,7 @@
 </style>
 <text x="0" y="20" class="h">Activity</text>
 <text x="0" y="52" class="k">Commits</text>
-<text x="220" y="52" class="v" text-anchor="end">5,029</text>
+<text x="220" y="52" class="v" text-anchor="end">6,517</text>
 <text x="0" y="79" class="k">Pull requests opened</text>
 <text x="220" y="79" class="v" text-anchor="end">1,219</text>
 <text x="0" y="106" class="k">Merged</text>
@@ -23,7 +23,7 @@
 <text x="280" y="79" class="k">Releases</text>
 <text x="500" y="79" class="v" text-anchor="end">38</text>
 <text x="280" y="106" class="k">Packages</text>
-<text x="500" y="106" class="v" text-anchor="end">–</text>
+<text x="500" y="106" class="v" text-anchor="end">27</text>
 <text x="280" y="133" class="k">Licensed</text>
 <text x="500" y="133" class="v" text-anchor="end">22 of 57</text>
 <text x="280" y="160" class="k">Storage</text>

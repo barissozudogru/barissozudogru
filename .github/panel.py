@@ -55,14 +55,27 @@ def search_count(q):
 
 def contributions_all_time():
     """
-    Commits across every year, public and private.
+    Commits across every year, public and private, or None.
 
     contributionsCollection covers one year at a time and defaults to the last
     one, which is why a naive read reports a few hundred commits for an account
-    with thousands. restrictedContributionsCount carries the private repositories.
+    with thousands. restrictedContributionsCount carries the private work.
+
+    Private contributions are only visible to the account's own token. Running
+    under a different or narrower one returns a smaller number rather than an
+    error, which is how this first reported 5,029 against an actual 6,515 with
+    nothing in the log to say so. A partial sum presented as a total is the
+    failure this panel exists to avoid, so both conditions now dash out: the
+    token must belong to the owner, and every year must answer.
     """
+    viewer = gh(["api", "graphql", "-f", "query={viewer{login}}"])
+    try:
+        if viewer["data"]["viewer"]["login"].lower() != OWNER.lower():
+            return None
+    except (TypeError, KeyError):
+        return None
+
     total = 0
-    seen = False
     for year in range(2021, date.today().year + 1):
         q = (f'{{user(login:"{OWNER}"){{contributionsCollection('
              f'from:"{year}-01-01T00:00:00Z",to:"{year}-12-31T23:59:59Z")'
@@ -71,10 +84,9 @@ def contributions_all_time():
         try:
             c = d["data"]["user"]["contributionsCollection"]
         except (TypeError, KeyError):
-            continue
+            return None
         total += c["totalCommitContributions"] + c["restrictedContributionsCount"]
-        seen = True
-    return total if seen else None
+    return total
 
 
 def collect():
