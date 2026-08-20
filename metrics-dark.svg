@@ -8,7 +8,7 @@
 </style>
 <text x="0" y="20" class="h">Activity</text>
 <text x="0" y="52" class="k">Commits</text>
-<text x="220" y="52" class="v" text-anchor="end">6,517</text>
+<text x="220" y="52" class="v" text-anchor="end">5,030</text>
 <text x="0" y="79" class="k">Pull requests opened</text>
 <text x="220" y="79" class="v" text-anchor="end">1,219</text>
 <text x="0" y="106" class="k">Merged</text>
@@ -38,7 +38,7 @@
 <text x="560" y="133" class="k">Following</text>
 <text x="780" y="133" class="v" text-anchor="end">227</text>
 <text x="560" y="160" class="k">Organizations</text>
-<text x="780" y="160" class="v" text-anchor="end">2</text>
+<text x="780" y="160" class="v" text-anchor="end">1</text>
 
 <text x="0" y="200" class="h">Languages</text>
 <clipPath id="barclip"><rect x="0" y="216" width="792" height="8" rx="4"/></clipPath>
