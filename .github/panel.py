@@ -140,8 +140,15 @@ def esc(s):
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
 
-def build(d):
-    W, H = 860, 392
+THEMES = {
+    "light": {"t": "#14181A", "s": "#6B7679", "h": "#2C6E7E", "k": "#4B5457", "v": "#14181A"},
+    "dark":  {"t": "#E8ECEA", "s": "#8B9497", "h": "#6FB3C4", "k": "#A3ACAF", "v": "#E8ECEA"},
+}
+
+
+def build(d, theme="dark"):
+    c = THEMES[theme]
+    W, H = 792, 346
     rows_left = [
         ("Commits", n(d["commits"])),
         ("Pull requests opened", n(d["prs"])),
@@ -174,57 +181,40 @@ def build(d):
         return "\n".join(out)
 
     total_lang = sum(c for _, c in d["languages"]) or 1
-    bar_x, bar_w = 40, W - 80
+    bar_x, bar_w = 0, W
     seg, cursor = [], bar_x
     palette = ["#4C8FBD", "#5FA37E", "#B58A56", "#8E7BB0", "#9AA3A8"]
     legend = []
     for i, (lang, count) in enumerate(d["languages"]):
         w = bar_w * count / total_lang
-        seg.append(f'<rect x="{cursor:.1f}" y="322" width="{max(w - 2, 1):.1f}" height="9" '
+        seg.append(f'<rect x="{cursor:.1f}" y="294" width="{max(w - 2, 1):.1f}" height="9" '
                    f'rx="1.5" fill="{palette[i % len(palette)]}"/>')
         cursor += w
         legend.append((lang, count, palette[i % len(palette)]))
 
     leg_parts, lx = [], bar_x
     for lang, count, colour in legend:
-        leg_parts.append(f'<circle cx="{lx + 4}" cy="352" r="4" fill="{colour}"/>')
-        leg_parts.append(f'<text x="{lx + 14}" y="356" class="lg">{esc(lang)}</text>')
+        leg_parts.append(f'<circle cx="{lx + 4}" cy="326" r="4" fill="{colour}"/>')
+        leg_parts.append(f'<text x="{lx + 14}" y="330" class="lg">{esc(lang)}</text>')
         lx += 24 + len(lang) * 7.6
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="GitHub metrics for {OWNER}">
 <style>
-  .bg {{ fill: #FBFBF9; }}
-  .card {{ fill: #FFFFFF; stroke: #E3E6E2; }}
-  .t {{ fill: #14181A; font: 600 21px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }}
-  .s {{ fill: #6B7679; font: 400 13px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }}
-  .h {{ fill: #2C6E7E; font: 600 11.5px ui-sans-serif, -apple-system, sans-serif; letter-spacing: .11em; }}
-  .k {{ fill: #4B5457; font: 400 14px ui-sans-serif, -apple-system, sans-serif; }}
-  .v {{ fill: #14181A; font: 500 14.5px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }}
-  .lg {{ fill: #4B5457; font: 400 12px ui-sans-serif, -apple-system, sans-serif; }}
-  .f {{ fill: #8B9497; font: 400 11.5px ui-sans-serif, -apple-system, sans-serif; }}
-  @media (prefers-color-scheme: dark) {{
-    .bg {{ fill: #0E1213; }}
-    .card {{ fill: #151A1B; stroke: #262E30; }}
-    .t {{ fill: #E8ECEA; }}
-    .s {{ fill: #8B9497; }}
-    .h {{ fill: #6FB3C4; }}
-    .k {{ fill: #A3ACAF; }}
-    .v {{ fill: #E8ECEA; }}
-    .lg {{ fill: #A3ACAF; }}
-    .f {{ fill: #6E7679; }}
-  }}
+  .t {{ fill: {c["t"]}; font: 600 21px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }}
+  .s {{ fill: {c["s"]}; font: 400 13px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; }}
+  .h {{ fill: {c["h"]}; font: 600 11.5px ui-sans-serif, -apple-system, sans-serif; letter-spacing: .11em; }}
+  .k {{ fill: {c["k"]}; font: 400 14px ui-sans-serif, -apple-system, sans-serif; }}
+  .v {{ fill: {c["v"]}; font: 500 14.5px ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; }}
+  .lg {{ fill: {c["k"]}; font: 400 12px ui-sans-serif, -apple-system, sans-serif; }}
 </style>
-<rect class="bg" width="{W}" height="{H}" rx="6"/>
-<rect class="card" x="12" y="12" width="{W - 24}" height="{H - 24}" rx="5"/>
+<text x="0" y="26" class="t">Baris Sozudogru</text>
+<text x="0" y="48" class="s">Engineering manager in Munich.</text>
 
-<text x="40" y="58" class="t">Baris Sozudogru</text>
-<text x="40" y="80" class="s">Engineering manager in Munich.</text>
+{column(rows_left, 0, 92, "ACTIVITY")}
+{column(rows_right, 280, 92, "REPOSITORIES")}
+{column(rows_third, 560, 92, "REACH")}
 
-{column(rows_left, 40, 122, "ACTIVITY")}
-{column(rows_right, 320, 122, "REPOSITORIES")}
-{column(rows_third, 600, 122, "REACH")}
-
-<text x="40" y="306" class="h">LANGUAGES</text>
+<text x="0" y="278" class="h">LANGUAGES</text>
 {chr(10).join(seg)}
 {chr(10).join(leg_parts)}
 
@@ -233,13 +223,14 @@ def build(d):
 
 
 if __name__ == "__main__":
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent / "metrics.svg"
+    base = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).parent
+    if base.suffix == ".svg":
+        base = base.parent
     data = collect()
-    svg = build(data)
-    for bad in ("—", "– "):
-        pass
-    out.write_text(svg)
+    for theme in THEMES:
+        out = base / f"metrics-{theme}.svg"
+        out.write_text(build(data, theme))
+        print(f"wrote {out}")
     missing = [k for k, v in data.items() if v is None]
-    print(f"wrote {out}")
     if missing:
         print(f"unreadable, drawn as dashes: {', '.join(missing)}")
