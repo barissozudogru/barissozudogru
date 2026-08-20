@@ -55,50 +55,33 @@ def search_count(q):
 
 def contributions_all_time():
     """
-    Commits across every year, public and private, or None.
+    Total contributions across every year, or None.
 
-    contributionsCollection covers one year at a time and defaults to the last
-    one, which is why a naive read reports a few hundred commits for an account
-    with thousands. restrictedContributionsCount carries the private work.
+    Reads contributionCalendar.totalContributions, which is the figure GitHub
+    itself puts on the profile graph. The obvious alternative,
+    totalCommitContributions plus restrictedContributionsCount, is not stable:
+    the split between them depends on what the querying token can see, so two
+    valid tokens for the same account returned 6,518 and 5,030 for the same
+    period. The calendar returned 6,636 from both, to the commit.
 
-    Private contributions are only visible to the account's own token. Running
-    under a different or narrower one returns a smaller number rather than an
-    error, which is how this first reported 5,029 against an actual 6,515 with
-    nothing in the log to say so. A partial sum presented as a total is the
-    failure this panel exists to avoid, so both conditions now dash out: the
-    token must belong to the owner, and every year must answer.
+    It counts contributions rather than commits alone, which is why the row is
+    labelled that way. A number that changes with who is asking is not a
+    measurement.
+
+    contributionsCollection covers one year at a time and defaults to the last,
+    so every year is summed. Any year failing to answer dashes the whole figure
+    rather than reporting a partial sum as a total.
     """
-    viewer = gh(["api", "graphql", "-f", "query={viewer{login}}"])
-    try:
-        if viewer["data"]["viewer"]["login"].lower() != OWNER.lower():
-            return None
-    except (TypeError, KeyError):
-        return None
-
-    # Contributions to private repositories inside an organisation are only
-    # counted when the token can see that organisation. Without read:org the
-    # API returns a smaller number rather than an error, which is how this
-    # reported 5,030 against an actual 6,517 with nothing to signal a gap.
-    # A count that silently omits a whole organisation is not a count.
-    r = subprocess.run(["gh", "api", "user", "--include", "--silent"],
-                       capture_output=True, text=True)
-    headers = (r.stdout + r.stderr).lower()
-    if "x-oauth-scopes:" in headers:
-        scopes = headers.split("x-oauth-scopes:")[1].split("\n")[0]
-        if "read:org" not in scopes and "admin:org" not in scopes:
-            return None
-
     total = 0
     for year in range(2021, date.today().year + 1):
         q = (f'{{user(login:"{OWNER}"){{contributionsCollection('
              f'from:"{year}-01-01T00:00:00Z",to:"{year}-12-31T23:59:59Z")'
-             f'{{totalCommitContributions restrictedContributionsCount}}}}}}')
+             f'{{contributionCalendar{{totalContributions}}}}}}}}')
         d = gh(["api", "graphql", "-f", f"query={q}"])
         try:
-            c = d["data"]["user"]["contributionsCollection"]
+            total += d["data"]["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
         except (TypeError, KeyError):
             return None
-        total += c["totalCommitContributions"] + c["restrictedContributionsCount"]
     return total
 
 
@@ -189,7 +172,7 @@ def build(d, theme="dark"):
     c = THEMES[theme]
     W, H = 792, 268
     rows_left = [
-        ("Commits", n(d["commits"])),
+        ("Contributions", n(d["commits"])),
         ("Pull requests opened", n(d["prs"])),
         ("Merged", n(d["prs_merged"])),
         ("Pull requests reviewed", n(d["reviews"])),
