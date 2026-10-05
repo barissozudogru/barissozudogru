@@ -8,11 +8,11 @@
 </style>
 <text x="0" y="20" class="h">Activity</text>
 <text x="0" y="52" class="k">Contributions</text>
-<text x="220" y="52" class="v" text-anchor="end">7,474</text>
+<text x="220" y="52" class="v" text-anchor="end">7,603</text>
 <text x="0" y="79" class="k">Pull requests opened</text>
-<text x="220" y="79" class="v" text-anchor="end">1,482</text>
+<text x="220" y="79" class="v" text-anchor="end">1,527</text>
 <text x="0" y="106" class="k">Merged</text>
-<text x="220" y="106" class="v" text-anchor="end">1,419</text>
+<text x="220" y="106" class="v" text-anchor="end">1,460</text>
 <text x="0" y="133" class="k">Pull requests reviewed</text>
 <text x="220" y="133" class="v" text-anchor="end">200</text>
 <text x="0" y="160" class="k">Issues opened</text>
@@ -27,7 +27,7 @@
 <text x="280" y="133" class="k">Licensed</text>
 <text x="500" y="133" class="v" text-anchor="end">24 of 61</text>
 <text x="280" y="160" class="k">Storage</text>
-<text x="500" y="160" class="v" text-anchor="end">1,060 MB</text>
+<text x="500" y="160" class="v" text-anchor="end">1,092 MB</text>
 <text x="560" y="20" class="h">Reach</text>
 <text x="560" y="52" class="k">Stars received</text>
 <text x="780" y="52" class="v" text-anchor="end">23</text>
@@ -47,7 +47,7 @@
 <rect x="326.12" y="216" width="310.59" height="8" fill="#3178c6"/>
 <rect x="636.71" y="216" width="93.18" height="8" fill="#e34c26"/>
 <rect x="729.88" y="216" width="46.59" height="8" fill="#F05138"/>
-<rect x="776.47" y="216" width="15.53" height="8" fill="#f1e05a"/>
+<rect x="776.47" y="216" width="15.53" height="8" fill="#ff5a03"/>
 </g>
 <circle cx="4" cy="248" r="4" fill="#3572A5"/>
 <text x="14" y="252" class="lg">Python</text>
@@ -57,7 +57,7 @@
 <text x="176.4" y="252" class="lg">HTML</text>
 <circle cx="220.0" cy="248" r="4" fill="#F05138"/>
 <text x="230.0" y="252" class="lg">Swift</text>
-<circle cx="280.5" cy="248" r="4" fill="#f1e05a"/>
-<text x="290.5" y="252" class="lg">JavaScript</text>
+<circle cx="280.5" cy="248" r="4" fill="#ff5a03"/>
+<text x="290.5" y="252" class="lg">Astro</text>
 
 </svg>
