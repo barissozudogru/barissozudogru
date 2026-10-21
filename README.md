@@ -1,6 +1,6 @@
 <a href="https://github.com/barissozudogru?tab=repositories">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./metrics-dark.svg?v=bee91a60">
-    <img alt="Metrics" src="./metrics-light.svg?v=bee91a60" width="792">
+    <source media="(prefers-color-scheme: dark)" srcset="./metrics-dark.svg?v=c374f9c1">
+    <img alt="Metrics" src="./metrics-light.svg?v=c374f9c1" width="792">
   </picture>
 </a>
